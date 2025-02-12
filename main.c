@@ -10,6 +10,28 @@ GLuint VAO;
 GLuint VBO;
 GLuint shader;
 
+static const char *vertexShader = "\
+#version 330\n\
+\n\
+layout(location = 0) in vec3 pos;\n\
+\n\
+void main()\n\
+{\n\
+    gl_Position = vec4(pos, 1.0f);\n\
+}\n\
+";
+
+static const char *fragmentShader = "\
+#version 330\n\
+\n\
+out vec4 color;\n\
+\n\
+void main()\n\
+{\n\
+    color = vec4(0.0f, 1.0f, 0.0f, 1.0f);\n\
+}\n\
+";
+
 void CreateTriangle()
 {
     // triangle, 3 vertices
@@ -86,7 +108,7 @@ int main()
     {
         glfwPollEvents();
 
-        glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         // each pixel has more data than color (for example depth)
         glClear(GL_COLOR_BUFFER_BIT);
 
