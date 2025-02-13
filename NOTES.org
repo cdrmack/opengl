@@ -1,0 +1,13 @@
+=GLEW= - extension wrangler
+=GLFW, SDL= - handles window creation and control
+
+[[https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview][Rendering Pipeline Stages]]
+1. vertex specification
+2. vertex shader (programmable)
+3. tessellation (programmable)
+4. geometry shader (programmable)
+5. vertex post-processing
+6. primitive assembly
+7. rasterization
+8. fragment shader (programmable)
+9. per-sample operations
