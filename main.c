@@ -52,7 +52,7 @@ void AddShader(GLuint program, const char *shaderCode, GLenum shaderType)
     glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
     if (!result)
     {
-        glGetShaderInfoLog(shader, sizeof(errorBuffer), NULL, errorBuffer);
+        glGetShaderInfoLog(shader, sizeof(errorBuffer), nullptr, errorBuffer);
         printf("compiling shader %d failed with error: %s\n", shaderType,
                errorBuffer);
         return; // TODO, handle error
@@ -83,7 +83,7 @@ void CompileShaders()
     glGetProgramiv(shader, GL_LINK_STATUS, &result);
     if (!result)
     {
-        glGetProgramInfoLog(shader, sizeof(errorBuffer), NULL, errorBuffer);
+        glGetProgramInfoLog(shader, sizeof(errorBuffer), nullptr, errorBuffer);
         printf("linking program failed with error: %s\n", errorBuffer);
         return; // TODO, handle error
     }
@@ -92,7 +92,7 @@ void CompileShaders()
     glGetProgramiv(shader, GL_VALIDATE_STATUS, &result);
     if (!result)
     {
-        glGetProgramInfoLog(shader, sizeof(errorBuffer), NULL, errorBuffer);
+        glGetProgramInfoLog(shader, sizeof(errorBuffer), nullptr, errorBuffer);
         printf("validating program failed with error: %s\n", errorBuffer);
         return; // TODO, handle error
     }
@@ -139,7 +139,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     GLFWwindow *mainWindow =
-        glfwCreateWindow(WIDTH, HEIGHT, "Test Window", NULL, NULL);
+        glfwCreateWindow(WIDTH, HEIGHT, "Test Window", nullptr, nullptr);
 
     if (!mainWindow)
     {
