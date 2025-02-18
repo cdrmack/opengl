@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -10,15 +11,24 @@ const GLint HEIGHT = 600;
 GLuint VAO;
 GLuint VBO;
 GLuint shader;
+GLuint uniformXMove;
+
+// triangle movement
+bool direction = true; // right
+float triOffset = 0.0f;
+float triMaxOffset = 0.7f;
+float triIncrement = 0.005f;
 
 static const char *vertexShader = "\
 #version 330\n\
 \n\
 layout(location = 0) in vec3 pos;\n\
 \n\
+uniform float xMove;\n\
+\n\
 void main()\n\
 {\n\
-    gl_Position = vec4(0.5 * pos, 1.0f);\n\
+    gl_Position = vec4(0.5 * pos.x +xMove, 0.5 * pos.y, pos.z, 1.0f);\n\
 }\n\
 ";
 
@@ -96,6 +106,8 @@ void CompileShaders()
         printf("validating program failed with error: %s\n", errorBuffer);
         return; // TODO, handle error
     }
+
+    uniformXMove = glGetUniformLocation(shader, "xMove");
 }
 
 void CreateTriangle()
@@ -177,11 +189,26 @@ int main()
     {
         glfwPollEvents();
 
+        if (direction)
+        {
+            triOffset += triIncrement;
+        }
+        else
+        {
+            triOffset -= triIncrement;
+        }
+
+        if (fabs(triOffset) >= triMaxOffset)
+        {
+            direction = !direction;
+        }
+
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         // each pixel has more data than color (for example depth)
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(shader);
+        glUniform1f(uniformXMove, triOffset);
         glBindVertexArray(VAO);
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
