@@ -47,13 +47,10 @@ void AddShader(GLuint program, const char *shaderCode, GLenum shaderType)
 {
     GLuint shader = glCreateShader(shaderType);
 
-    const GLchar *code[1]; // = shaderCode;
-    code[0] = shaderCode;
+    const GLchar *const code = shaderCode;
+    GLint length = strlen(shaderCode);
 
-    GLint length[1];
-    length[0] = strlen(shaderCode);
-
-    glShaderSource(shader, 1, code, length);
+    glShaderSource(shader, 1, &code, &length);
     glCompileShader(shader);
 
     GLint result = 0;
@@ -160,11 +157,6 @@ int main()
         return 1;
     }
 
-    // space inside the window
-    int bufferWidth;
-    int bufferHeight;
-    glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
-
     // set context for GLEW to use
     glfwMakeContextCurrent(mainWindow);
 
@@ -178,6 +170,11 @@ int main()
         glfwTerminate();
         return 1;
     }
+
+    // space inside the window
+    int bufferWidth;
+    int bufferHeight;
+    glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
 
     // setup viewport size
     glViewport(0, 0, bufferWidth, bufferHeight);
