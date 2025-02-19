@@ -2,9 +2,9 @@ EXE = opengl
 SOURCES = main.c
 OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 
-CPPFLAGS = `pkg-config --cflags glew glfw3`
+CPPFLAGS = `pkg-config --cflags glew glfw3 cglm`
 CFLAGS = -std=c23 -g -Wall -Werror
-LDFLAGS = `pkg-config --libs glew glfw3`
+LDFLAGS = `pkg-config --libs glew glfw3 cglm`
 
 %.o:%.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
